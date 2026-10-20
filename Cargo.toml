@@ -1,0 +1,27 @@
+[package]
+name = "mobileclip-s0"
+version = "0.1.0"
+edition = "2021"
+description = "MobileCLIP-S0 FP32 vision encoder and text-bank classifier in pure Rust"
+license = "MIT"
+publish = false
+
+[lib]
+name = "mobileclip_s0"
+path = "src/lib.rs"
+
+[[bin]]
+name = "mobileclip-s0"
+path = "src/main.rs"
+
+[dependencies]
+# Pure-Rust decoders only (zune-jpeg, png, image-webp, ...): no C libraries.
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "bmp", "gif"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+debug = false
